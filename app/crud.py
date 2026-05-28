@@ -5,7 +5,7 @@ from app.models import Venta
 def validar_entrada(db: Session, dni: str, nombres: str):
 
     dni_limpio = dni.strip()
-    nombres_limpios = nombres.strip()
+    nombres_limpios = nombres.strip().upper()
 
     # --- SÚPER TEST DE DEPURACIÓN ---
     # Esto traerá los primeros 3 usuarios de tu base de datos reales en Render
@@ -18,18 +18,18 @@ def validar_entrada(db: Session, dni: str, nombres: str):
 
     # Tu consulta (Búsqueda flexible usando func.trim)
 
-    if not dni:
+    #if not dni:
+    #
+    #    venta = db.query(Venta).filter(
+    #        Venta.nombres.ilike(f"%{nombres_limpios}%")
+    #    ).first()
+    #
+    #else:
 
-        venta = db.query(Venta).filter(
-            Venta.nombres.ilike(f"%{nombres_limpios}%")
-        ).first()
-
-    else:
-
-        venta = db.query(Venta).filter(
-            func.trim(Venta.dni) == dni_limpio,
-            Venta.nombres.ilike(f"%{nombres_limpios}%")
-        ).first()
+    venta = db.query(Venta).filter(
+        func.trim(Venta.dni) == dni_limpio,
+        Venta.nombres.ilike(f"%{nombres_limpios}%")
+     ).first()
     
     # 1. NO EXISTE
     if not venta:
