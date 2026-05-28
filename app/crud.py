@@ -1,19 +1,23 @@
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 from app.models import Venta
 
 def validar_entrada(db: Session, dni: str, nombres: str):
 
+    dni_limpio = dni.strip()
+    nombres_limpios = nombres.strip()
+
     if not dni:
 
         venta = db.query(Venta).filter(
-            Venta.nombres == nombres
+            Venta.nombres == nombres_limpios
         ).first()
 
     else:
 
         venta = db.query(Venta).filter(
-            Venta.dni == dni,
-            Venta.nombres == nombres
+            func.trim(Venta.dni) == dni_limpio,
+            Venta.nombres == nombres_limpios
         ).first()
     
     # 1. NO EXISTE
