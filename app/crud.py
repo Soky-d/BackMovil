@@ -7,6 +7,17 @@ def validar_entrada(db: Session, dni: str, nombres: str):
     dni_limpio = dni.strip()
     nombres_limpios = nombres.strip()
 
+    # --- SÚPER TEST DE DEPURACIÓN ---
+    # Esto traerá los primeros 3 usuarios de tu base de datos reales en Render
+    test_usuarios = db.query(models.Usuario).limit(3).all()
+    print("--- DEPURACIÓN DE DATOS REALES EN RENDER ---")
+    for u in test_usuarios:
+        print(f"DNI en BD: '{u.dni}' (Tipo: {type(u.dni)}) | Nombre en BD: '{u.nombres}'")
+    print(f"Buscando DNI enviado: '{dni_limpio}' | Nombre enviado: '{nombres_limpios}'")
+    # ---------------------------------
+
+    # Tu consulta (Búsqueda flexible usando func.trim)
+
     if not dni:
 
         venta = db.query(Venta).filter(
