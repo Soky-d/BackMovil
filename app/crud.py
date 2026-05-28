@@ -18,18 +18,18 @@ def validar_entrada(db: Session, dni: str, nombres: str):
 
     # Tu consulta (Búsqueda flexible usando func.trim)
 
-    #if not dni:
-    #
-    #    venta = db.query(Venta).filter(
-    #        Venta.nombres.ilike(f"%{nombres_limpios}%")
-    #    ).first()
-    #
-    #else:
+    if not dni:
+    
+        venta = db.query(Venta).filter(
+            Venta.nombres.ilike(f"%{nombres_limpios}%")
+        ).first()
+    
+    else:
 
-    venta = db.query(Venta).filter(
-        func.trim(Venta.dni) == dni_limpio,
-        Venta.nombres.ilike(f"%{nombres_limpios}%")
-     ).first()
+        venta = db.query(Venta).filter(
+            func.trim(Venta.dni) == dni_limpio,
+            Venta.nombres.ilike(f"%{nombres_limpios}%")
+        ).first()
     
     # 1. NO EXISTE
     if not venta:
