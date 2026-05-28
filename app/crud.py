@@ -9,7 +9,7 @@ def validar_entrada(db: Session, dni: str, nombres: str):
 
     # --- SÚPER TEST DE DEPURACIÓN ---
     # Esto traerá los primeros 3 usuarios de tu base de datos reales en Render
-    test_usuarios = db.query(models.Usuario).limit(3).all()
+    test_usuarios = db.query(Venta).limit(3).all()
     print("--- DEPURACIÓN DE DATOS REALES EN RENDER ---")
     for u in test_usuarios:
         print(f"DNI en BD: '{u.dni}' (Tipo: {type(u.dni)}) | Nombre en BD: '{u.nombres}'")
